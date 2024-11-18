@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>GreenHouse</title>
+    <meta http-equiv="refresh">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+
+        <div class="box" id="networksettings">
+            <div class="header">
+                <h2>Network Settings</h2>
+            </div>
+            <div class="form-group">
+                <input type="text" id="ssid" name="ssid" placeholder="SSID">
+            </div>
+            <div class="form-group">
+                <input type="text" id="password" name="password" placeholder="PASSWORD">
+            </div>
+            <div class="form-group radio-group" id="wifiModeSwitch">
+                <label>WIFI MODE:</label>
+                <label><input type="radio" id="ap" name="mode" value="AP"> Access Point</label>
+                <label><input type="radio" id="client" name="mode" value="Client"> Client</label>
+            </div>
+            <div class="form-group buttons">
+                <button id="save_network" type="submit">Save Network Setting</button>
+            </div>
+        </div>
+
+    
+        <div class="box hidden" id="drop_zone">
+            <div class="header">
+                <h2>Update</h2>
+                <p id="update_text">Use littlefs.bin to update file system, any other filename will update the firmware.</p>
+                <p>Free Storage: %FREESPACE% | Used Storage: %USEDSPACE% | Total Storage: %TOTALSPACE%</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/main.js" type="module"></script>
+    <script src="js/update.js"></script>
+</body>
+
+</html>
