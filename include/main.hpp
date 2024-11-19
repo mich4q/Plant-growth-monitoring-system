@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include "web.hpp"
-
+#include "SDcard.hpp"
 
 // Deklaracja funkcji inicjalizujących
 void setup();
@@ -16,5 +16,5 @@ void hardwareInit();
 
 extern Web web; // Deklaracja obiektu Web
 extern Network network; // Deklaracja obiektu Network
-
+extern Sd_card sdCard;
 #endif // MAIN_H
