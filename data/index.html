@@ -2,7 +2,6 @@
 <head>
     <meta charset="utf-8">
     <title>GreenHouse</title>
-    <meta http-equiv="refresh">
     <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -25,19 +24,45 @@
             </div>
             <div class="form-group buttons">
                 <button id="save_network" type="submit">Save Network Setting</button>
+                <button id="update_button" type="button">Go to firmawe update</button>
+
             </div>
         </div>
-
-    
-        <div class="box hidden" id="drop_zone">
-            <div class="header">
-                <h2>Update</h2>
-                <p id="update_text">Use littlefs.bin to update file system, any other filename will update the firmware.</p>
-                <p>Free Storage: %FREESPACE% | Used Storage: %USEDSPACE% | Total Storage: %TOTALSPACE%</p>
+        <div class="box" >
+            <div class="row" >
+                <div class="column" id="temp_title"> Temperature </div>
+                <div class="column" id="temp"></div>
+                <div class="unit">°C</div>
+            </div>
+            <div class="row">
+                <div class="column" id="hum_title"> Humidity </div>
+                <div class="column" id="hum"></div>
+                <div class="unit">&percnt;</div>
             </div>
         </div>
         
-    </div>
+        <div class="box" id="terminal">
+            <div class="header">
+                <h2 id="terminal_title">Terminal</h2>
+            </div>
+            <div class="row" id="terminal_output">
+            </div>
+        </div>
+    
+        <div class="box" id="drop_zone">
+            <div class="header">
+                <h2 id="update_title">Update</h2>
+                <p id="update_text">Use littlefs.bin to update file system, any other filename will update the firmware.
+                </p>
+            </div>
+            <div class="row">
+                <form method='POST' action='/update' enctype='multipart/form-data' id='upload_form'>
+                    <input type='file' name='update'>
+                    <input type='submit' id="upload" value='Upload'>
+                </form>
+                <p>Free Storage: %FREESPACE% | Used Storage: %USEDSPACE% | Total Storage: %TOTALSPACE%</p>
+            </div>
+        </div>
 
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/main.js" type="module"></script>
