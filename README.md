@@ -36,3 +36,13 @@ An asynchronous server is created on the ESP32, which starts in access point mod
 |- platformio.ini
 |- README.md --> This file
 ```
+# Pinout
+
+| MicroSD card       | ESP32         |
+|--------------------|---------------|
+| CLK                | GPIO 14       |
+| CMD                | GPIO 15       |
+| DATA0              | GPIO 2        |
+| DATA1 / flashlight | GPIO 4        |
+| DATA2              | GPIO 12       |
+| DATA3              | GPIO 13       |
