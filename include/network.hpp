@@ -10,7 +10,7 @@ class Network {
 public:
     void init(); // Inicjalizacja i ustawienie trybu Wi-Fi
     void setWifiMode(); // Funkcja do ustawienia trybu Wi-Fi (AP lub STA)
-
+    void startAccessPoint(const char* ssid, const char* password);
 private:
     const char* hostname = "GreenHouse"; // Domyślny hostname dla mDNS
     IPAddress apIP = IPAddress(192, 168, 4, 1); // IP dla trybu AP

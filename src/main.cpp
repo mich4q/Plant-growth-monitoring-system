@@ -11,6 +11,11 @@ void setup() {
     initWiFi();
     web.setup();
 
+    // for(int i=0;i<5;i++)
+    // {
+    //     Serial.println("testing firmware updates ota");
+    // }
+
 }
 
 void loop() {
@@ -30,6 +35,7 @@ void initFilesystem(){
 
 void hardwareInit(){
     Serial.begin(115200);
-    sdCard.init();
+    // sdCard.init();
+    pinMode(OUTPUT,LOW);
 
 }
