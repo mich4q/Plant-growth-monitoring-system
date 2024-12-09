@@ -5,11 +5,16 @@
 #include <LittleFS.h>
 #include <Update.h>
 #include "network.hpp"
+#include <Adafruit_Sensor.h>
+#include <DHT_U.h>
+#include "constants.h"
+#include <ArduinoJson.h>
+
 
 class Web {
 public:
     // Konstruktor z portem (domyślnie 80)
-    Web(): server(80), ws("/ws"), wsClient(nullptr), updateContentLen(0) {}
+    Web(): server(80), updateContentLen(0) {}
 
     void setup();
     void saveNetwork(AsyncWebServerRequest *request);
@@ -17,11 +22,10 @@ public:
     void onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
     void updateHandler(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final);
     String template_proc(const String &var);
+    void getData(AsyncWebServerRequest *request);
 
 private:
     AsyncWebServer server;
-    AsyncWebSocket ws;
-    AsyncWebSocketClient *wsClient;
     size_t updateContentLen;
 
 };

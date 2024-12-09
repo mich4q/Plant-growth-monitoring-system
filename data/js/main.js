@@ -1,6 +1,7 @@
-import { connectWebSocket } from './websocket.js';
 
 $(function () {
+    
+    setInterval(getSensorData,1000);
 
     // Funkcja zmiany widoczności sekcji
     function showSection(sectionId) {
@@ -35,6 +36,10 @@ $(function () {
     $('#save_network').on('click', function (event) {
         saveNetwork();
     });
+
+    $('#getSensorData').on('click',function(event){
+        getSensorData();
+    })
 })
 
 function saveNetwork() {
@@ -56,6 +61,27 @@ function saveNetwork() {
         },
         error: function (xhr, status, error) {
             console.log('error occured: ' + error);
+        }
+    });
+}
+
+function getSensorData(){
+    $.ajax({
+        url: '/getData',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            // Wyświetl temperaturę
+            $('#temp').text(response.temperature.toFixed(1));
+            
+            // Wyświetl wilgotność
+            $('#hum').text(response.humidity.toFixed(1));
+        },
+        error: function(xhr, status, error) {
+            // Obsługa błędu - wyświetlenie komunikatu
+            $('#temp').text('Błąd');
+            $('#hum').text('Błąd');
+            console.error('Błąd pobierania danych:', error);
         }
     });
 }
