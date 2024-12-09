@@ -1,6 +1,26 @@
 import { connectWebSocket } from './websocket.js';
 
 $(function () {
+
+    // Funkcja zmiany widoczności sekcji
+    function showSection(sectionId) {
+        $("section").addClass("hidden").removeClass("visible");
+        $(sectionId).addClass("visible").removeClass("hidden");
+    }
+
+    // Obsługa kliknięcia w linki menu
+    $("#home-link").click(function() {
+        showSection("#home");
+    });
+
+    $("#network-link").click(function() {
+        showSection("#networksettings");
+    });
+
+    $("#update-link").click(function() {
+        showSection("#update");
+    });
+    
     connectWebSocket();
     $('#terminal').click(function () {
         $('#terminal_output').toggle();
