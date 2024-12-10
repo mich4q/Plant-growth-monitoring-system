@@ -1,7 +1,6 @@
-
 $(function () {
     
-    setInterval(getSensorData,1000);
+    setInterval(getSensorData,10000);
 
     // Funkcja zmiany widoczności sekcji
     function showSection(sectionId) {
@@ -76,11 +75,15 @@ function getSensorData(){
             
             // Wyświetl wilgotność
             $('#hum').text(response.humidity.toFixed(1));
+
+            $('#timestamp').text(response.timestamp);
+
         },
         error: function(xhr, status, error) {
             // Obsługa błędu - wyświetlenie komunikatu
             $('#temp').text('Błąd');
             $('#hum').text('Błąd');
+            $('#timestamp').text('Błąd');
             console.error('Błąd pobierania danych:', error);
         }
     });

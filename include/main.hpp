@@ -13,7 +13,6 @@ void loop();
 void initFilesystem();
 void initWiFi();
 void hardwareInit();
-void getData();
 
 
 extern Web web; // Deklaracja obiektu Web

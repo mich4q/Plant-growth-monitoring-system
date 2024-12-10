@@ -1,5 +1,6 @@
 #include "web.hpp"
-DHT dht_sensor(DHT_PIN,DHT_TYPE);
+
+DHTData dhtData;
 
 void Web::setup() {
     // Obsługa głównej strony, wysyłanie pliku index.html
@@ -35,30 +36,13 @@ void Web::setup() {
     server.begin();
 }
 void Web::getData(AsyncWebServerRequest *request){
-    dht_sensor.begin();
-  // Pomiar temperatury i wilgotności
-  float temperature = dht_sensor.readTemperature();
-  float humidity = dht_sensor.readHumidity();
-
-  // Sprawdzenie poprawności odczytu
-  if (isnan(temperature) || isnan(humidity)) {
-        request->send(500, "application/json", "{\"error\": \"Błąd odczytu czujnika\"}");
-    return;
-  }
-
-  // Przygotowanie odpowiedzi JSON
-    JsonDocument doc;
-    doc["temperature"] = temperature;
-    doc["humidity"] = humidity;
-
-  // Konwersja do stringa
-  String jsonResponse;
-  serializeJson(doc, jsonResponse);
-
-  // Wysłanie odpowiedzi
-  request->send(200, "application/json", jsonResponse);
-
+    
+    String jsonResponse;
+    jsonResponse = dhtData.getDHTData();
+    Serial.println(jsonResponse);
+    request->send(200, "application/json", jsonResponse);
 }
+
 void Web::saveNetwork(AsyncWebServerRequest *request) {
     // Sprawdzenie, czy wszystkie wymagane parametry są dostępne
     if (request->hasParam("ssid") && request->hasParam("password") && request->hasParam("wifiMode")) {
@@ -92,31 +76,7 @@ void Web::saveNetwork(AsyncWebServerRequest *request) {
     }
 }
 
-// void Web::logToSocket(int level, const String &message1, const String &message2, String value, const tm &timeinfo) {
-//     char timeString[64];
-//     strftime(timeString, sizeof(timeString), "%A, %B %d %Y %H:%M:%S", &timeinfo);
-    
-//     String logMessage = "[" + String(timeString) + "]: " + message1;
-    
-//     if (message2 != "") {
-//         logMessage = logMessage + ": " + message2;
-//     }
-//     if (value != "nan") {
-//         logMessage = logMessage + ": " + value;
-//     }
-//     if (wsClient != nullptr && wsClient->canSend()) {
-//         wsClient->text(logMessage);
-//     }
-// }
 
-// void Web::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
-//                AwsEventType type, void *arg, uint8_t *data, size_t len) {
-//     if (type == WS_EVT_CONNECT) {
-//         wsClient = client;
-//     } else if (type == WS_EVT_DISCONNECT) {
-//         wsClient = nullptr;
-//     }
-// }
 
 String Web::template_proc(const String &var) {
     if (var == "FREESPACE") {
@@ -162,3 +122,29 @@ void Web::updateHandler(AsyncWebServerRequest *request, const String &filename,
         }
     }
 }
+
+// void Web::logToSocket(int level, const String &message1, const String &message2, String value, const tm &timeinfo) {
+//     char timeString[64];
+//     strftime(timeString, sizeof(timeString), "%A, %B %d %Y %H:%M:%S", &timeinfo);
+    
+//     String logMessage = "[" + String(timeString) + "]: " + message1;
+    
+//     if (message2 != "") {
+//         logMessage = logMessage + ": " + message2;
+//     }
+//     if (value != "nan") {
+//         logMessage = logMessage + ": " + value;
+//     }
+//     if (wsClient != nullptr && wsClient->canSend()) {
+//         wsClient->text(logMessage);
+//     }
+// }
+
+// void Web::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
+//                AwsEventType type, void *arg, uint8_t *data, size_t len) {
+//     if (type == WS_EVT_CONNECT) {
+//         wsClient = client;
+//     } else if (type == WS_EVT_DISCONNECT) {
+//         wsClient = nullptr;
+//     }
+// }

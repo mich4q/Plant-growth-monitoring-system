@@ -5,11 +5,7 @@
 #include <LittleFS.h>
 #include <Update.h>
 #include "network.hpp"
-#include <Adafruit_Sensor.h>
-#include <DHT_U.h>
-#include "constants.h"
-#include <ArduinoJson.h>
-
+#include "dhtData.hpp"
 
 class Web {
 public:
