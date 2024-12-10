@@ -6,14 +6,12 @@ A system for controlling plant growth conditions in a home greenhouse based on E
 An asynchronous server is created on the ESP32, which starts in access point mode with the name GREENHOUSE. To connect to it, you need to provide a password and then access the webpage at the address greenhouse.local within the local network.
 # To do 
 - [x] WebServer
-  - [x] drag&drop OTA updates
   - [x] AP/Client modes
-  - [x] Terminal
 - [ ] SD card
   - [x] SD card init
-  - [ ] SD card save config (json/csv?)
+  - [ ] SD card data save
 - [ ] co2 sensor
-- [ ] temperature/humidity sensor (dht/bme?)
+- [x] temperature/humidity sensor (dht22)
 - [ ] pump
 - [ ] fan
 - [ ] soil humidity
@@ -27,6 +25,8 @@ An asynchronous server is created on the ESP32, which starts in access point mod
 |   |- networkPreferences.hpp
 |   |- SDcard.hpp
 |   |- web.hpp
+|   |- constants.h
+|   |- dhtData.hpp
 |
 |-- src
 |   |
@@ -35,6 +35,7 @@ An asynchronous server is created on the ESP32, which starts in access point mod
 |   |- networkPreferences.cpp
 |   |- SDcard.cpp
 |   |- web.cpp
+|   |- dhtData.cpp
 |
 |-- data
 |   |
@@ -59,3 +60,10 @@ An asynchronous server is created on the ESP32, which starts in access point mod
 | DATA1 / flashlight | GPIO 4        |
 | DATA2              | GPIO 12       |
 | DATA3              | GPIO 13       |
+|--------------------|---------------|
+|                 DHT22              |
+|--------------------|---------------|
+| DATA               | GPIO 16       |
+|--------------------|---------------|
+
+
