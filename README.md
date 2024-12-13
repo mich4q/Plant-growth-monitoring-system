@@ -5,6 +5,8 @@ A system for controlling plant growth conditions in a home greenhouse based on E
 # Functionality
 An asynchronous server is created on the ESP32, which starts in access point mode with the name GREENHOUSE. To connect to it, you need to provide a password and then access the webpage at the address greenhouse.local within the local network.
 
+# Web interface
+![image](https://github.com/user-attachments/assets/ce132bfb-3164-4617-aed7-71b48eee8d76)
 
 
 
