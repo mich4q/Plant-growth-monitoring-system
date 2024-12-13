@@ -7,6 +7,7 @@
 #include <ArduinoJson.h>
 #include "constants.h" 
 #include "time.h"
+#include "DataJson.hpp"
 
 
 class DHTData{

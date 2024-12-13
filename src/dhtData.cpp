@@ -1,5 +1,5 @@
 #include "dhtData.hpp"
-
+DataHandler dataHandler;
 DHT dht_sensor(DHT_PIN,DHT_TYPE);
 
 String DHTData::getReadingTimestamp() {
@@ -24,21 +24,23 @@ String DHTData::getDHTData(){
     temperature = dht_sensor.readTemperature();
     humidity = dht_sensor.readHumidity();
     String jsonResponse;
-    JsonDocument doc; // Init and get the time
     String timestamp;
 
     timestamp = getReadingTimestamp();
+    dataHandler.addData(timestamp,temperature,humidity,0.0,0);
 
     // Sprawdzenie poprawności odczytu
     if (isnan(temperature) || isnan(humidity)) {
         jsonResponse = "{\"error\": \"Błąd odczytu czujnika\"}";
         return jsonResponse;
     }
-  // Przygotowanie odpowiedzi JSON
+    JsonDocument doc; 
     doc["temperature"] = temperature;
     doc["humidity"] = humidity;
+    doc["soil_humidity"] = 0;
+    doc["CO2"] = 0;
     doc["timestamp"] = timestamp;
-    //   Konwersja do stringa
+
     serializeJson(doc, jsonResponse);
     return jsonResponse;
 }

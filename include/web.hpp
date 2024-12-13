@@ -6,6 +6,7 @@
 #include <Update.h>
 #include "network.hpp"
 #include "dhtData.hpp"
+#include "SDcard.hpp"
 
 class Web {
 public:

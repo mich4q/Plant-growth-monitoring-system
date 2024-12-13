@@ -36,10 +36,9 @@ void Web::setup() {
     server.begin();
 }
 void Web::getData(AsyncWebServerRequest *request){
-    
     String jsonResponse;
     jsonResponse = dhtData.getDHTData();
-    Serial.println(jsonResponse);
+    // Serial.println(jsonResponse);
     request->send(200, "application/json", jsonResponse);
 }
 
