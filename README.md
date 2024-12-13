@@ -4,12 +4,53 @@ A system for controlling plant growth conditions in a home greenhouse based on E
 
 # Functionality
 An asynchronous server is created on the ESP32, which starts in access point mode with the name GREENHOUSE. To connect to it, you need to provide a password and then access the webpage at the address greenhouse.local within the local network.
+
+
+
+
+# Json file structure
+
+```json
+[
+  {
+    "temperature": 23.4,
+    "humidity": 51.8,
+    "soil_humidity": 0,
+    "CO2": 0,
+    "timestamp": "2024-12-13 16:47:42"
+  },
+  {
+    "temperature": 23.5,
+    "humidity": 51.8,
+    "soil_humidity": 0,
+    "CO2": 0,
+    "timestamp": "2024-12-13 16:48:33"
+  }
+]
+```
+# Pinout
+
+| MicroSD card       | ESP32         |
+|--------------------|---------------|
+| CLK                | GPIO 14       |
+| CMD                | GPIO 15       |
+| DATA0              | GPIO 2        |
+| DATA1 / flashlight | GPIO 4        |
+| DATA2              | GPIO 12       |
+| DATA3              | GPIO 13       |
+
+
+| DHT22              | ESP32         |
+|--------------------|---------------|
+| DATA               | GPIO 16       |
+
+
 # To do 
 - [x] WebServer
   - [x] AP/Client modes
-- [ ] SD card
+- [x] SD card
   - [x] SD card init
-  - [ ] SD card data save
+  - [x] SD card data save
 - [ ] co2 sensor
 - [x] temperature/humidity sensor (dht22)
 - [ ] pump
@@ -50,20 +91,4 @@ An asynchronous server is created on the ESP32, which starts in access point mod
 |- platformio.ini
 |- README.md --> This file
 ```
-# Pinout
-
-| MicroSD card       | ESP32         |
-|--------------------|---------------|
-| CLK                | GPIO 14       |
-| CMD                | GPIO 15       |
-| DATA0              | GPIO 2        |
-| DATA1 / flashlight | GPIO 4        |
-| DATA2              | GPIO 12       |
-| DATA3              | GPIO 13       |
-|--------------------|---------------|
-|                 DHT22              |
-|--------------------|---------------|
-| DATA               | GPIO 16       |
-|--------------------|---------------|
-
 
