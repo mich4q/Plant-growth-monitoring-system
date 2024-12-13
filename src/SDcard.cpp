@@ -2,12 +2,17 @@
 #include "SDcard.hpp"
 
 void Sd_card::init(){
-    if (!SD_MMC.begin()) {
-      result = "SD Card Mount Failed";
-    }
-    if (SD_MMC.cardType() == CARD_NONE) {
-      result = "No SD Card attached";
-    }
-    result = "SD card initialized succesfully";
-    Serial.println(result);
+  // Start Micro SD card
+  Serial.println("Starting SD Card");
+  if(!SD_MMC.begin()){
+    Serial.println("SD Card Mount Failed");
+    return;
+  }
+  sdcard_type_t cardType = SD_MMC.cardType();
+  if(cardType == CARD_NONE){
+    Serial.println("No SD Card attached");
+    return;
+  } else{
+    Serial.println(cardType);
+  }
 }

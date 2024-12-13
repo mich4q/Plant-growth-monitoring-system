@@ -27,7 +27,9 @@ String DHTData::getDHTData(){
     String timestamp;
 
     timestamp = getReadingTimestamp();
-    dataHandler.addData(timestamp,temperature,humidity,0.0,0);
+    if(!dataHandler.addData(timestamp,temperature,humidity,0.0,0)){
+        Serial.println("Failed to add data to json file ");
+    }
 
     // Sprawdzenie poprawności odczytu
     if (isnan(temperature) || isnan(humidity)) {

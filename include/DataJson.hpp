@@ -1,5 +1,6 @@
 #include <ArduinoJson.h>
 #include <SD_MMC.h>
+#include <FS.h>
 
 class DataHandler{
     public:

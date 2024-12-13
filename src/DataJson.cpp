@@ -27,7 +27,7 @@ bool DataHandler::createDataJson() {
 }
 
 bool DataHandler::updateDataJson() {
-    // Otwórz plik do zapisu
+    
     File file = SD_MMC.open(dataFilePath, FILE_WRITE);
     if (!file) {
         Serial.println("[ERROR] Nie można otworzyć pliku do zapisu.");

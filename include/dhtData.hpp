@@ -20,7 +20,6 @@ class DHTData{
     const int   daylightOffset_sec = 3600;
 
     String getDHTData();
-    void saveDataToFile();
     String getReadingTimestamp();
 
 };

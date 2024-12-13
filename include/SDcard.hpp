@@ -2,7 +2,6 @@
 #define SDCARD_HPP
 
 #include <Arduino.h>
-#include <ArduinoJson.h>
 #include <SD_MMC.h>
 
 class Sd_card{

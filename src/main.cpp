@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include "main.hpp"
+
 Web web;
 Network network;
-// Sd_card sdCard;
+Sd_card sdCard;
+
 void setup() {
 
     hardwareInit();
@@ -27,5 +29,6 @@ void initFilesystem(){
 
 void hardwareInit(){
     Serial.begin(115200);
-    // sdCard.init();
+    sdCard.init();
+    dataHandler.createDataJson();
 }
