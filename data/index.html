@@ -5,8 +5,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-    <!-- <div> test d&D update</div> -->
+<body>
         <div class="box" id="networksettings">
             <div class="header">
                 <h2>Network Settings</h2>
@@ -38,33 +37,9 @@
                 <div class="unit">&percnt;</div>
             </div>
         </div>
-        
-        <div class="box" id="terminal">
-            <div class="header">
-                <h2 id="terminal_title">Terminal</h2>
-            </div>
-            <div class="row" id="terminal_output">
-            </div>
-        </div>
     
-        <div class="box" id="drop_zone">
-            <div class="header">
-                <h2 id="update_title">Update</h2>
-                <p id="update_text">Use littlefs.bin to update file system, any other filename will update the firmware.
-                </p>
-            </div>
-            <div class="row">
-                <form method='POST' action='/update' enctype='multipart/form-data' id='upload_form'>
-                    <input type='file' name='update'>
-                    <input type='submit' id="upload" value='Upload'>
-                </form>
-                <p>Free Storage: %FREESPACE% | Used Storage: %USEDSPACE% | Total Storage: %TOTALSPACE%</p>
-            </div>
-        </div>
-
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/main.js" type="module"></script>
-    <script src="js/update.js"></script>
 </body>
 
 </html>

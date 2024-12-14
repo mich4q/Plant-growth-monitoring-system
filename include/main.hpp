@@ -14,7 +14,4 @@ void initFilesystem();
 void initWiFi();
 void hardwareInit();
 
-extern Web web; // Deklaracja obiektu Web
-extern Network network; // Deklaracja obiektu Network
-extern Sd_card sdCard;
 #endif // MAIN_H

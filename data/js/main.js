@@ -1,12 +1,5 @@
-import { connectWebSocket } from './websocket.js';
 
 $(function () {
-    connectWebSocket();
-    $('#terminal').click(function () {
-        $('#terminal_output').toggle();
-    });
-
-
     $("#wifiModeSwitch").on('change', function () {
         $('#ssid').val('');
         $('#password').val('');

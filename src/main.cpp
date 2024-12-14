@@ -1,21 +1,13 @@
 #include <Arduino.h>
 #include "main.hpp"
 
-Web web;
-Network network;
-Sd_card sdCard;
+
 void setup() {
 
     hardwareInit();
     initFilesystem();
     initWiFi();
     web.setup();
-
-    // for(int i=0;i<5;i++)
-    // {
-    //     Serial.println("testing firmware updates ota");
-    // }
-
 }
 
 void loop() {
@@ -32,10 +24,6 @@ void initFilesystem(){
   }
   Serial.println("Filesystem mounted successfully.");
 }
-
 void hardwareInit(){
     Serial.begin(115200);
-    // sdCard.init();
-    pinMode(OUTPUT,LOW);
-
 }

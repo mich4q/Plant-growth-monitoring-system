@@ -1,5 +1,6 @@
 #include "web.hpp"
 
+Web web;
 
 void Web::setup() {
     // Obsługa głównej strony, wysyłanie pliku index.html
@@ -17,12 +18,6 @@ void Web::setup() {
     server.on("/savenetwork", HTTP_GET, [this](AsyncWebServerRequest *request) { 
         saveNetwork(request); 
     });
-
-    // Obsługa aktualizacji
-    server.on("/update", HTTP_POST, [](AsyncWebServerRequest *request) {},
-            [this](AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final) {
-            updateHandler(request, filename, index, data, len, final);
-        });
 
     // Obsługa nieznanych zapytań (404)
     server.onNotFound([](AsyncWebServerRequest *request) { 
@@ -66,32 +61,6 @@ void Web::saveNetwork(AsyncWebServerRequest *request) {
     }
 }
 
-void Web::logToSocket(int level, const String &message1, const String &message2, String value, const tm &timeinfo) {
-    char timeString[64];
-    strftime(timeString, sizeof(timeString), "%A, %B %d %Y %H:%M:%S", &timeinfo);
-    
-    String logMessage = "[" + String(timeString) + "]: " + message1;
-    
-    if (message2 != "") {
-        logMessage = logMessage + ": " + message2;
-    }
-    if (value != "nan") {
-        logMessage = logMessage + ": " + value;
-    }
-    if (wsClient != nullptr && wsClient->canSend()) {
-        wsClient->text(logMessage);
-    }
-}
-
-void Web::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
-               AwsEventType type, void *arg, uint8_t *data, size_t len) {
-    if (type == WS_EVT_CONNECT) {
-        wsClient = client;
-    } else if (type == WS_EVT_DISCONNECT) {
-        wsClient = nullptr;
-    }
-}
-
 String Web::template_proc(const String &var) {
     if (var == "FREESPACE") {
         return String(((LittleFS.totalBytes() - LittleFS.usedBytes()) / 1000));
@@ -101,38 +70,5 @@ String Web::template_proc(const String &var) {
         return String(LittleFS.totalBytes() / 1000);
     } else {
         return String("unknown");
-    }
-}
-
-void Web::updateHandler(AsyncWebServerRequest *request, const String &filename,
-                   size_t index, uint8_t *data, size_t len, bool final) {
-    if (!index) {
-        updateContentLen = request->contentLength();
-        int cmd = U_FLASH;
-        if (filename == "littlefs.bin") {
-            cmd = (filename.indexOf("littlefs") > -1) ? U_SPIFFS : U_FLASH;
-        }
-        if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) {
-            Update.printError(Serial);
-        }
-    }
-
-    if (Update.write(data, len) != len) {
-        Update.printError(Serial);
-    }
-
-    if (final) {
-        if (!Update.end(true)) {
-            updateContentLen = 0;
-            Update.printError(Serial);
-
-            char *html = (char *)"<html><head><meta http-equiv='refresh' content='5; url=/update'><title>Update Failed</title></head></html>";
-            request->send(200, "text/html", html);
-        } else {
-            char *html = (char *)"<html><head><meta http-equiv='refresh' content='10; url=/'><title>Rebooting</title></head><body>Rebooting...</body></html>";
-            request->send(200, "text/html", html);
-            delay(3000);
-            ESP.restart();
-        }
     }
 }
