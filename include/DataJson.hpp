@@ -1,7 +1,7 @@
 #include <ArduinoJson.h>
 #include <SD_MMC.h>
 #include <FS.h>
-
+#include "constants.h"
 class DataHandler{
     public:
     JsonDocument data;
@@ -9,7 +9,7 @@ class DataHandler{
     
     bool createDataJson();
     bool updateDataJson();
-    bool addData(String timestamp, float temperature, float humidity, float soil_humidity, int co2);
+    String addData(SensorData data);
     
     const char* dataFilePath = "/data.json";
 

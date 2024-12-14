@@ -18,7 +18,7 @@ class DHTData{
     const long  gmtOffset_sec = 3600;
     const int   daylightOffset_sec = 3600;
 
-    String getDHTData();
+    SensorData getDHTData();
     String getReadingTimestamp();
     void dhtInit();
 

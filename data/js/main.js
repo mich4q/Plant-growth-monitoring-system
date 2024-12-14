@@ -1,5 +1,6 @@
 $(function () {
-    
+    getSensorData(); // Uruchom natychmiast po załadowaniu strony
+
     setInterval(getSensorData,10000);
 
     // Funkcja zmiany widoczności sekcji
@@ -17,18 +18,18 @@ $(function () {
         showSection("#networksettings");
     });
 
-    $("#wifiModeSwitch").on('change', function () {
+    $("#wifiModeSwitch").change(function () {
         $('#ssid').val('');
         $('#password').val('');
     });
 
-    $('#save_network').on('click', function (event) {
+    $('#save_network').click( function (event) {
         saveNetwork();
     });
 
-    // $('#getSensorData').on('click',function(event){
-    //     getSensorData();
-    // })
+    $('#getSensorData').click(function(event){
+        getSensorData();
+    })
 })
 
 function saveNetwork() {
@@ -54,32 +55,44 @@ function saveNetwork() {
     });
 }
 
-// function getSensorData(){
-//     $.ajax({
-//         url: '/getData',
-//         method: 'GET',
-//         dataType: 'json',
-//         success: function(response) {
-//             // Wyświetl temperaturę
-//             $('#temp').text(response.temperature.toFixed(1));
-            
-//             // Wyświetl wilgotność
-//             $('#hum').text(response.humidity.toFixed(1));
+function getSensorData() {
+    $.ajax({
+        url: '/getData',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            console.log('Odebrane dane:', response);
 
-//             $('#timestamp').text(response.timestamp);
-//             $('#soil_hum').text(response.soil_humidity.toFixed(1));
-//             $('#co2').text(response.CO2);
-//         },
-//         error: function(xhr, status, error) {
-//             // Obsługa błędu - wyświetlenie komunikatu
-//             $('#temp').text('Błąd');
-//             $('#hum').text('Błąd');
-//             $('#timestamp').text('Błąd');
-//             $('#timestamp').text('Błąd');
-//             $('#soil_hum').text('Błąd');
-//             $('#co2').text('Błąd');
-//             console.error('Błąd pobierania danych:', error);
-//         }
-//     });
-// }
+            // Sprawdź, czy odpowiedź to tablica i ma przynajmniej jeden element
+            if (Array.isArray(response) && response.length > 0) {
+                const sensorData = response[0]; // Pobierz pierwszy (i jedyny) obiekt w tablicy
+
+                // Zaktualizuj dane na stronie
+                $('#temp').text(sensorData.temperature !== null ? sensorData.temperature.toFixed(1) : 'Brak danych');
+                $('#hum').text(sensorData.humidity !== null ? sensorData.humidity.toFixed(1) : 'Brak danych');
+                $('#soil_hum').text(sensorData.soil_humidity !== null ? sensorData.soil_humidity.toFixed(1) : 'Brak danych');
+                $('#co2').text(sensorData.CO2 !== null ? sensorData.CO2 : 'Brak danych');
+                $('#timestamp').text(sensorData.timestamp || 'Brak danych');
+            } else {
+                console.error('Nieprawidłowa odpowiedź: brak danych w tablicy');
+                $('#temp').text('Błąd');
+                $('#hum').text('Błąd');
+                $('#soil_hum').text('Błąd');
+                $('#co2').text('Błąd');
+                $('#timestamp').text('Błąd');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Błąd pobierania danych:', error);
+
+            // Ustaw komunikaty o błędzie
+            $('#temp').text('Błąd');
+            $('#hum').text('Błąd');
+            $('#soil_hum').text('Błąd');
+            $('#co2').text('Błąd');
+            $('#timestamp').text('Błąd');
+        }
+    });
+}
+
 

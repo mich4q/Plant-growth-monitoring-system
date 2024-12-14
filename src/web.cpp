@@ -8,33 +8,37 @@ void Web::setup() {
         request->send(LittleFS, "/index.html", "text/html");
     });
 
-    // Obsługa statycznych plików (JavaScript, CSS, obrazy)
-    server.serveStatic("/js/", LittleFS, "/js/");
-    server.serveStatic("/css/", LittleFS, "/css/");
-    
     // Obsługa zapisu ustawień sieciowych
     server.on("/savenetwork", HTTP_GET, [this](AsyncWebServerRequest *request) { 
         saveNetwork(request); 
     });
 
-    // server.on("/getData", HTTP_GET,[this](AsyncWebServerRequest *request){
-    //     getData(request);
-    // });
+    server.on("/getData", HTTP_GET,[this](AsyncWebServerRequest *request){
+        getData(request);
+    });
+
     // Obsługa nieznanych zapytań (404)
     server.onNotFound([](AsyncWebServerRequest *request) { 
         request->send(404); 
     });
 
+    // Obsługa statycznych plików (JavaScript, CSS, obrazy)
+    server.serveStatic("/js/", LittleFS, "/js/");
+    server.serveStatic("/css/", LittleFS, "/css/");
+    
     // Rozpoczęcie działania serwera
     server.begin();
 }
-// void Web::getData(AsyncWebServerRequest *request){
-//     String jsonResponse = "{\"error\": \"No data available\"}";
+void Web::getData(AsyncWebServerRequest *request){
+    SensorData data;
+    data = dhtData.getDHTData();
 
-//     // serializeJson(dataHandler.doc, jsonResponse); // Serializuje JSON do ciągu znaków
-//     // request->send(200, "application/json", jsonResponse); // Wysyła odpowiedź jako JSON
-//     request->send(200, "application/json", jsonResponse); // Wysyła odpowiedź jako JSON
-// }
+    String jsonResponse;
+    jsonResponse = dataHandler.addData(data);
+    Serial.println(jsonResponse);
+
+    request->send(200, "application/json", jsonResponse); // Wysyła odpowiedź jako JSON
+}
 
 void Web::saveNetwork(AsyncWebServerRequest *request) {
     // Sprawdzenie, czy wszystkie wymagane parametry są dostępne

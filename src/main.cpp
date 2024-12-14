@@ -10,26 +10,24 @@ void setup() {
     hardwareInit();
     initFilesystem();
     initWiFi();
+
     web.setup();
+    
 }
 unsigned long lastmillis = 0;
 
 void loop() {
-    // unsigned long currentmillis = millis();
-    // if(currentmillis - lastmillis >= DHT_INTERVAL){
-    //     // String data;
-    //     // data = dhtData.getDHTData();
-    //     // Serial.println(data);
-
-    //     size_t freeMemory = ESP.getFreeHeap();
+    unsigned long currentmillis = millis();
+    if(currentmillis - lastmillis >= DHT_INTERVAL){
+        size_t freeMemory = ESP.getFreeHeap();
   
-    //     // Wyświetlenie dostępnej pamięci na serial porcie
-    //     Serial.print("Dostępna pamięć: ");
-    //     Serial.print(freeMemory);
-    //     Serial.println(" bajtów");
-    //     lastmillis = currentmillis;
+        // Wyświetlenie dostępnej pamięci na serial porcie
+        Serial.print("Dostępna pamięć: ");
+        Serial.print(freeMemory);
+        Serial.println(" bajtów");
+        lastmillis = currentmillis;
 
-    // }    
+    }    
 }
 
 void initWiFi(){
@@ -46,7 +44,6 @@ void initFilesystem(){
 
 void hardwareInit(){
     Serial.begin(115200);
-    // sdCard.init();
-    // dataHandler.createDataJson();
-    // dhtData.dhtInit();
+    sdCard.init();
+    dataHandler.createDataJson();
 }
