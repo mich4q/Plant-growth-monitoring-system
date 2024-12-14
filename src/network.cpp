@@ -3,6 +3,9 @@
 #include <ESPmDNS.h>
 #include "network.hpp"
 
+
+Network network; 
+
 void Network::init() {
     setWifiMode();
 }

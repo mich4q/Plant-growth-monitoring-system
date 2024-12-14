@@ -1,5 +1,7 @@
 #include "DataJson.hpp"
 
+DataHandler dataHandler;
+
 bool DataHandler::createDataJson() {
     // Sprawdź, czy plik już istnieje
     if (SD_MMC.exists(dataFilePath)) {

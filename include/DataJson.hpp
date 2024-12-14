@@ -5,6 +5,8 @@
 class DataHandler{
     public:
     JsonDocument data;
+    JsonDocument doc;
+    
     bool createDataJson();
     bool updateDataJson();
     bool addData(String timestamp, float temperature, float humidity, float soil_humidity, int co2);

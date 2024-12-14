@@ -26,9 +26,9 @@ $(function () {
         saveNetwork();
     });
 
-    $('#getSensorData').on('click',function(event){
-        getSensorData();
-    })
+    // $('#getSensorData').on('click',function(event){
+    //     getSensorData();
+    // })
 })
 
 function saveNetwork() {
@@ -54,32 +54,32 @@ function saveNetwork() {
     });
 }
 
-function getSensorData(){
-    $.ajax({
-        url: '/getData',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            // Wyświetl temperaturę
-            $('#temp').text(response.temperature.toFixed(1));
+// function getSensorData(){
+//     $.ajax({
+//         url: '/getData',
+//         method: 'GET',
+//         dataType: 'json',
+//         success: function(response) {
+//             // Wyświetl temperaturę
+//             $('#temp').text(response.temperature.toFixed(1));
             
-            // Wyświetl wilgotność
-            $('#hum').text(response.humidity.toFixed(1));
+//             // Wyświetl wilgotność
+//             $('#hum').text(response.humidity.toFixed(1));
 
-            $('#timestamp').text(response.timestamp);
-            $('#soil_hum').text(response.soil_humidity.toFixed(1));
-            $('#co2').text(response.CO2);
-        },
-        error: function(xhr, status, error) {
-            // Obsługa błędu - wyświetlenie komunikatu
-            $('#temp').text('Błąd');
-            $('#hum').text('Błąd');
-            $('#timestamp').text('Błąd');
-            $('#timestamp').text('Błąd');
-            $('#soil_hum').text('Błąd');
-            $('#co2').text('Błąd');
-            console.error('Błąd pobierania danych:', error);
-        }
-    });
-}
+//             $('#timestamp').text(response.timestamp);
+//             $('#soil_hum').text(response.soil_humidity.toFixed(1));
+//             $('#co2').text(response.CO2);
+//         },
+//         error: function(xhr, status, error) {
+//             // Obsługa błędu - wyświetlenie komunikatu
+//             $('#temp').text('Błąd');
+//             $('#hum').text('Błąd');
+//             $('#timestamp').text('Błąd');
+//             $('#timestamp').text('Błąd');
+//             $('#soil_hum').text('Błąd');
+//             $('#co2').text('Błąd');
+//             console.error('Błąd pobierania danych:', error);
+//         }
+//     });
+// }
 

@@ -1,6 +1,8 @@
 #include "dhtData.hpp"
-DataHandler dataHandler;
+#include "DataJson.hpp"
 DHT dht_sensor(DHT_PIN,DHT_TYPE);
+DHTData dhtData;
+
 
 String DHTData::getReadingTimestamp() {
     
@@ -20,30 +22,27 @@ String DHTData::getReadingTimestamp() {
 }
 
 String DHTData::getDHTData(){
-    dht_sensor.begin();
     temperature = dht_sensor.readTemperature();
     humidity = dht_sensor.readHumidity();
     String jsonResponse;
     String timestamp;
 
     timestamp = getReadingTimestamp();
-    if(!dataHandler.addData(timestamp,temperature,humidity,0.0,0)){
-        Serial.println("Failed to add data to json file ");
-    }
-
     // Sprawdzenie poprawności odczytu
     if (isnan(temperature) || isnan(humidity)) {
         jsonResponse = "{\"error\": \"Błąd odczytu czujnika\"}";
         return jsonResponse;
     }
-    JsonDocument doc; 
-    doc["temperature"] = temperature;
-    doc["humidity"] = humidity;
-    doc["soil_humidity"] = 0;
-    doc["CO2"] = 0;
-    doc["timestamp"] = timestamp;
+    
+    dataHandler.doc["temperature"] = temperature;
+    dataHandler.doc["humidity"] = humidity;
+    dataHandler.doc["soil_humidity"] = 0;
+    dataHandler.doc["CO2"] = 0;
+    dataHandler.doc["timestamp"] = timestamp;
 
-    serializeJson(doc, jsonResponse);
+    serializeJson(dataHandler.doc, jsonResponse);
     return jsonResponse;
 }
-
+void DHTData::dhtInit(){
+    dht_sensor.begin();
+}

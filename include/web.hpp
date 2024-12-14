@@ -1,5 +1,6 @@
 #ifndef WEB_HPP
-#define WEB_H
+#define WEB_HPP
+
 #include <Arduino.h>
 #include <ESPAsyncWebServer.h>
 #include <LittleFS.h>
@@ -15,10 +16,6 @@ public:
 
     void setup();
     void saveNetwork(AsyncWebServerRequest *request);
-    void logToSocket(int level, const String &message1, const String &message2, String value, const tm &timeinfo);
-    void onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
-    void updateHandler(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final);
-    String template_proc(const String &var);
     void getData(AsyncWebServerRequest *request);
 
 private:
@@ -28,5 +25,4 @@ private:
 };
 
 extern Web web;
-
 #endif

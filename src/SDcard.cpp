@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "SDcard.hpp"
 
+Sd_card sdCard;
+
 void Sd_card::init(){
   // Start Micro SD card
   Serial.println("Starting SD Card");

@@ -7,7 +7,7 @@
 #define ESSID "GREENHOUSE"
 #define PW "GREENHOUSE"
 
-class preferencesHandler {
+class PreferencesHandler {
 public:
   Preferences preferences;
   
@@ -23,6 +23,6 @@ public:
   void preferencesClear();
 };
 
-extern preferencesHandler handlePreferences;
+extern PreferencesHandler handlePreferences;
 
 #endif // NETWORKPREFERENCES_HPP

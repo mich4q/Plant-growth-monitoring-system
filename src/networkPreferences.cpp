@@ -1,6 +1,8 @@
 #include "networkPreferences.hpp"
 
-void preferencesHandler::saveNetworkValues() {
+PreferencesHandler handlePreferences;
+
+void PreferencesHandler::saveNetworkValues() {
   if (preferences.begin("network", false)) {
     preferences.putString("ssid", ssid);
     preferences.putString("pw", pw);
@@ -12,7 +14,7 @@ void preferencesHandler::saveNetworkValues() {
   }
 }
 
-void preferencesHandler::readNetworkValues() {
+void PreferencesHandler::readNetworkValues() {
   if (preferences.begin("network", false)) {
     ssid = preferences.getString("ssid", ESSID);
     pw = preferences.getString("pw", PW);
@@ -26,7 +28,6 @@ void preferencesHandler::readNetworkValues() {
   preferences.end();
 }
 
-void preferencesHandler::preferencesClear() { 
+void PreferencesHandler::preferencesClear() { 
   preferences.clear(); 
 }
-preferencesHandler handlePreferences;

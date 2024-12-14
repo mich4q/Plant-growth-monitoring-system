@@ -6,8 +6,7 @@
 #include <Adafruit_Sensor.h>
 #include <ArduinoJson.h>
 #include "constants.h" 
-#include "time.h"
-#include "DataJson.hpp"
+#include <time.h>
 
 
 class DHTData{
@@ -21,6 +20,7 @@ class DHTData{
 
     String getDHTData();
     String getReadingTimestamp();
+    void dhtInit();
 
 };
 extern DHTData dhtData;
