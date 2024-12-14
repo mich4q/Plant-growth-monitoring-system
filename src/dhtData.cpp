@@ -23,7 +23,7 @@ String DHTData::getReadingTimestamp() {
 
 SensorData DHTData::getDHTData(){
     SensorData data;
-    dht_sensor.begin();
+    // dht_sensor.begin();
     data.temperature = dht_sensor.readTemperature();
     data.humidity = dht_sensor.readHumidity();
     data.timestamp = getReadingTimestamp();

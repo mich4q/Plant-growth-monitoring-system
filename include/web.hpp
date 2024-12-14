@@ -17,6 +17,7 @@ public:
     void setup();
     void saveNetwork(AsyncWebServerRequest *request);
     void getData(AsyncWebServerRequest *request);
+    bool loadStaticFiles();
 
 private:
     AsyncWebServer server;

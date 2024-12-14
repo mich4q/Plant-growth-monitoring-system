@@ -63,9 +63,9 @@ function getSensorData() {
         success: function(response) {
             console.log('Odebrane dane:', response);
 
-            // Sprawdź, czy odpowiedź to tablica i ma przynajmniej jeden element
-            if (Array.isArray(response) && response.length > 0) {
-                const sensorData = response[0]; // Pobierz pierwszy (i jedyny) obiekt w tablicy
+            // Sprawdź, czy odpowiedź to obiekt, a nie tablica
+            if (response && typeof response === 'object') {
+                const sensorData = response; // Odpowiedź jest już obiektem
 
                 // Zaktualizuj dane na stronie
                 $('#temp').text(sensorData.temperature !== null ? sensorData.temperature.toFixed(1) : 'Brak danych');
@@ -74,7 +74,8 @@ function getSensorData() {
                 $('#co2').text(sensorData.CO2 !== null ? sensorData.CO2 : 'Brak danych');
                 $('#timestamp').text(sensorData.timestamp || 'Brak danych');
             } else {
-                console.error('Nieprawidłowa odpowiedź: brak danych w tablicy');
+                console.error('Nieprawidłowa odpowiedź: oczekiwano obiekt, otrzymano:', response);
+                // Ustaw komunikaty o błędzie
                 $('#temp').text('Błąd');
                 $('#hum').text('Błąd');
                 $('#soil_hum').text('Błąd');
@@ -94,5 +95,3 @@ function getSensorData() {
         }
     });
 }
-
-

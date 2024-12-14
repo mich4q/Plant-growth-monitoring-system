@@ -4,12 +4,11 @@
 #include "constants.h"
 class DataHandler{
     public:
-    JsonDocument data;
     JsonDocument doc;
     
     bool createDataJson();
-    bool updateDataJson();
-    String addData(SensorData data);
+    bool saveJsonToSDcard();
+    String updateJsonDoc(SensorData data);
     
     const char* dataFilePath = "/data.json";
 
