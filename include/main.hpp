@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include "web.hpp"
 #include "SDcard.hpp"
+#include "sensors.hpp"
+
 
 // Deklaracja funkcji inicjalizujących
 void setup();
