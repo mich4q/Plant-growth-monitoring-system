@@ -13,7 +13,6 @@
         <ul>
             <li><a href="#" id="home-link">Home</a></li>
             <li><a href="#" id="network-link">Network Settings</a></li>
-            <li><a href="#" id="update-link">Update</a></li>
         </ul>
     </nav>
 
@@ -36,16 +35,18 @@
                     <div class="column" id="hum"></div>
                     <div class="unit">&percnt;</div>
                 </div>
-                <!-- <div class="form-group buttons">
-                    <button id="getSensorData" type="submit"> Get data</button>
-                </div> -->
-            </div>
-            <!-- <div class="box" id="terminal">
-                <div class="header">
-                    <h2 id="terminal_title">Terminal</h2>
+                <div class="row">
+                    <div class="column" id="soil_hum_title">Soil humidity</div>
+                    <div class="column" id="soil_hum"></div>
+                    <div class="unit">&percnt;</div>
                 </div>
-                <div class="row" id="terminal_output"></div>
-            </div> -->
+                <div class="row">
+                    <div class="column" id="co2_title">CO2</div>
+                    <div class="column" id="co2"></div>
+                    <div class="unit">ppm;</div>
+                </div>
+            </div>
+
         </section>
 
         <!-- Network Settings -->
@@ -71,26 +72,10 @@
             </div>
         </section>
 
-        <!-- Update -->
-        <section id="update" class="hidden">
-            <div class="box">
-                <div class="header">
-                    <h2 id="update_title">Update</h2>
-                    <p id="update_text">Use littlefs.bin to update file system, any other filename will update the firmware.</p>
-                </div>
-                <div class="row">
-                    <form method='POST' action='/update' enctype='multipart/form-data' id='upload_form'>
-                        <input type='file' name='update'>
-                        <input type='submit' id="upload" value='Upload'>
-                    </form>
-                    <p>Free Storage: %FREESPACE% | Used Storage: %USEDSPACE% | Total Storage: %TOTALSPACE%</p>
-                </div>
-            </div>
-        </section>
+        
     </main>
 
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/main.js" type="module"></script>
-    <script src="js/update.js"></script>
 </body>
 </html>

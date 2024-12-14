@@ -17,16 +17,6 @@ $(function () {
         showSection("#networksettings");
     });
 
-    $("#update-link").click(function() {
-        showSection("#update");
-    });
-    
-    connectWebSocket();
-    $('#terminal').click(function () {
-        $('#terminal_output').toggle();
-    });
-
-
     $("#wifiModeSwitch").on('change', function () {
         $('#ssid').val('');
         $('#password').val('');
@@ -77,13 +67,17 @@ function getSensorData(){
             $('#hum').text(response.humidity.toFixed(1));
 
             $('#timestamp').text(response.timestamp);
-
+            $('#soil_hum').text(response.soil_humidity.toFixed(1));
+            $('#co2').text(response.CO2);
         },
         error: function(xhr, status, error) {
             // Obsługa błędu - wyświetlenie komunikatu
             $('#temp').text('Błąd');
             $('#hum').text('Błąd');
             $('#timestamp').text('Błąd');
+            $('#timestamp').text('Błąd');
+            $('#soil_hum').text('Błąd');
+            $('#co2').text('Błąd');
             console.error('Błąd pobierania danych:', error);
         }
     });
